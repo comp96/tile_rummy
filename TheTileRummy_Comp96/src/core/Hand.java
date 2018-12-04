@@ -341,36 +341,42 @@ public class Hand {
 
     /**
      * Print all groups in this.groups
+     * @return 
      */
-    public void print_groups() {
+    public String print_groups() {
+        String str="";
         for (int i = 0; i < this.groups.size(); ++i) {
-            System.out.print(i + ": ");
-            this.groups.get(i).print_meld();
+            str+=i + ": "+this.groups.get(i).print_meld();
         }
+        return str;
     }
 
     /**
      * Print all runs in this.runs
+     * @return 
      */
-    public void print_runs() {
+    public String print_runs() {
+        String str="";
         for (int i = 0; i < this.runs.size(); ++i) {
-            System.out.print(i + ": ");
-            this.runs.get(i).print_meld();
+            str+=i + ": "+this.runs.get(i).print_meld();
         }
+        return str;
     }
 
     /**
      * Print all groups and runs in this hand
      */
-    public void print_melds() {
+    public String print_melds() {
+        String str="";
         if (this.groups.size() > 0) {
-            System.out.println("Group(s): ");
-            this.print_groups();
+            str+="Group(s): ";
+            str+=this.print_groups();
         }
         if (this.runs.size() > 0) {
-            System.out.println("Run(s): ");
-            this.print_runs();
+            str+="Run(s): ";
+            str+=this.print_runs();
         }
+        return str;
     }
 
     /**
@@ -391,7 +397,7 @@ public class Hand {
 
         for (String string : tiles_array) {
             if (builder.length() > 0) {
-                builder.append(" ");
+                builder.append(",  ");
             }
             builder.append(string);
         }

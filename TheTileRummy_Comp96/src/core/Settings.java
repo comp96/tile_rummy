@@ -5,6 +5,7 @@ import core.Strategies.Strategy_1;
 import core.Strategies.Strategy_2;
 import core.Strategies.Strategy_3;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,18 +31,20 @@ public class Settings {
     public void setupSettings() {
         do {
             System.out.println("Enter Players Count(2-4)");
-            setNumOfPlayers(getmText_UI().get_scanner().nextInt());
+            setNumOfPlayers(Integer.parseInt(JOptionPane.showInputDialog("Enter Players Count(2-4)")));
         } while (getNumOfPlayers() < 2 || getNumOfPlayers() > 4);
         int choice = 0;
         for (int i = 0; i < getNumOfPlayers(); i++) {
+           
             System.out.println("Choose Players Type");
             System.out.println("1- Human");
             System.out.println("2- AI");
-            choice=getmText_UI().get_scanner().nextInt();
+            choice= Integer.parseInt(JOptionPane.showInputDialog("Choose Players Type\n1- Human\n2- AI"));
             switch (choice) {
                 case 1: {
-                    System.out.println("Enter Name of Player");
-                    Player p1 = new Human_Player(getmText_UI().get_scanner().next());
+                    
+                    System.out.println("Enter Name of Player ("+(i+1)+"/"+numOfPlayers+")");
+                    Player p1 = new Human_Player(JOptionPane.showInputDialog("Enter Name of Player ("+(i+1)+"/"+numOfPlayers+")"));
                     getPlayers().add(p1);
                     break;
                 }

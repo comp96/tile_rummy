@@ -437,23 +437,20 @@ public class Player implements Observer, Subject {
     }
 
     /**
-     * Print this player's hand
+     * return this player's hand
+     * @return 
      */
-    public void print_hand() {
-        System.out.println(this.name + "s hand is: " + this.hand.hand_to_string());
+    public String print_hand() {
+        return this.name + "s hand is: " + this.hand.hand_to_string();
     }
 
     /**
      * Print this player's hand and melds in it
+     * @return 
      */
-    public void print_hand_and_melds() {
-        System.out.println("");
+    public String print_hand_and_melds() {
+        return this.print_hand()+"\n"+this.hand.print_melds();
 
-        this.print_hand();
-        System.out.println("");
-
-        this.hand.print_melds();
-        System.out.println("");
     }
 
 }
