@@ -37,6 +37,7 @@ public class Settings {
             System.out.println("Choose Players Type");
             System.out.println("1- Human");
             System.out.println("2- AI");
+            choice=getmText_UI().get_scanner().nextInt();
             switch (choice) {
                 case 1: {
                     System.out.println("Enter Name of Player");

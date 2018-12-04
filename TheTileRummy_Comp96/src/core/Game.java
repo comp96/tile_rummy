@@ -60,19 +60,6 @@ public class Game {
     }
 
     /**
-     * To Change Settings of the Game(players choice human or AI)
-     */
-    public void settings() {
-
-        try {
-            BufferedWriter br = new BufferedWriter(new FileWriter("settings.txt"));
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    /**
      * Play this game
      */
     public void play_game() {
@@ -96,7 +83,7 @@ public class Game {
                     }
                 }
                 //checking game is end or not
-                check_end_game(lastPlayer);
+                check_end_game(p);
                 lastPlayer = p; //saving last player instance for further use
             }
             //notify all observers
