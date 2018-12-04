@@ -3,6 +3,8 @@ package core;
 import java.util.ArrayList;
 import core.Interfaces.*;
 import core.Strategies.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 /**
  * @author Luis, Heba, Alex
@@ -10,8 +12,7 @@ import core.Strategies.*;
 public class Game {
 
     /**
-     * *******************
-     * CLASS VARIABLE(S) * *******************
+     * CLASS VARIABLE(S) 
      */
     private final static int initial_hand_size = 14;	// Initial hand size will always be the same for all Games
     private final static int winning_hand_size = 0;
@@ -108,9 +109,24 @@ public class Game {
     }
 
     /**
+     * To Change Settings of the Game(players choice human or AI)
+     */
+    public void settings() {
+        
+        try{
+            BufferedWriter br=new BufferedWriter(new FileWriter("settings.txt"));
+            
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
+    /**
      * Play this game
      */
     public void play_game() {
+
         text.print_welcome();
         set_up();
 
