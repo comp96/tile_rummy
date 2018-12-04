@@ -1,0 +1,4 @@
+* To avoid duplicate code when declaring and renaming variables, we should merge these two test classes into one
+* We should have assert statements for all tests
+* All methods should have side effects, else the method isn't doing anything
+* We test if we get the side effect we want
