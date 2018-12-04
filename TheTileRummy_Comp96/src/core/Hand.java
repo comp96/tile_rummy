@@ -6,35 +6,20 @@ import java.util.ArrayList;
  * Note: Once we start taking into account the tiles on the table, a player's
  * meld will not be limited to the contents of its hand
  *
- * @author
+ * @author Comp96
  */
 public class Hand {
 
-    /**
-     * **********************
-     * INSTANCE VARIABLE(S) *
-	 ***********************
-     */
     private Meld hand_meld;
     private ArrayList<Meld> groups;
     private ArrayList<Meld> runs;
 
-    /**
-     * *************
-     * CONSTRUCTOR *
-	 **************
-     */
     public Hand() {
         this.hand_meld = new Meld();
         this.groups = new ArrayList<>();
         this.runs = new ArrayList<>();
     }
 
-    /**
-     * ***********
-     * GETTER(S) *
-	 ************
-     */
     /**
      * @param i
      * @return tile at index i
@@ -82,7 +67,6 @@ public class Hand {
     }
 
     /**
-     * @param group_or_run
      * @return the index of the meld with the highest score in the ArrayList of
      * melds passed in as an argument
      */
@@ -110,11 +94,6 @@ public class Hand {
     }
 
     /**
-     * **********
-     * WRAPPERS *
-	 ***********
-     */
-    /**
      * Add one tile to hand
      */
     public void add(Tile tile) {
@@ -128,11 +107,6 @@ public class Hand {
         return this.hand_meld.size();
     }
 
-    /**
-     * ******
-     * ELSE *
-	 *******
-     */
     /**
      * Helper function for find_groups and find_runs Delete groups_or_runs' last
      * meld if it is empty
@@ -342,11 +316,6 @@ public class Hand {
     }
 
     /**
-     * *******
-     * PRINT *
-	 ********
-     */
-    /**
      * Textual interface output to show the first "number_of_tiles" in hand
      *
      * @param number_of_tiles
@@ -409,6 +378,7 @@ public class Hand {
      *
      * I got some of this code from StackOverflow
      * https://stackoverflow.com/questions/5925420/how-to-create-a-string-from-string-array-or-arraylist
+     * @return string
      */
     public final String hand_to_string() {
         int hand_size = this.hand_meld.size();

@@ -9,19 +9,10 @@ import java.io.FileWriter;
  */
 public class Game {
 
-    /**
-     * CLASS VARIABLE(S)
-     */
     private final static int INITIAL_HAND_SIZE = 14;	// Initial hand size will always be the same for all Games
     private final static int WINNING_HAND_SIZE = 0;
     private static Text_UI text = new Text_UI();
 
-    private static int choice_int;
-    private static String choice_str;
-
-    /**
-     * INSTANCE VARIABLE(S)
-     */
     private Board board; // if this.board.get_size() == 0, then no melds have been played
     private Stock stock;
     private boolean end_game;
@@ -67,7 +58,6 @@ public class Game {
         text.print_welcome();
         while (!this.end_game) {
             Player lastPlayer = null;
-            int count = 0;
             for (Player p : gameSettings.getPlayers()) {
                 //if player is a human player
                 if (p instanceof Human_Player) {
@@ -106,7 +96,6 @@ public class Game {
      * @param player
      */
     public void player_h_turn(Human_Player player) {
-        int original_board_size = this.board.size();
         text.print_turn_start(player);
 
         if (player.get_melds_played() > 0 && player.get_hand().has_melds()) {

@@ -9,18 +9,8 @@ import java.util.Scanner;
  */
 public class Text_UI {
 
-    /**
-     * *******************
-     * CLASS VARIABLE(S) *
-	 ********************
-     */
     private final Scanner scanner = new Scanner(System.in);
 
-    /**
-     * ***********
-     * GETTER(S) *
-	 ************
-     */
     /**
      * @return scanner
      */
@@ -28,11 +18,6 @@ public class Text_UI {
         return this.scanner;
     }
 
-    /**
-     * *******
-     * PRINT *
-	 ********
-     */
     /**
      * Print a string
      *

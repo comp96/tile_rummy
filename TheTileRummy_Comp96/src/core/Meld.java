@@ -5,29 +5,14 @@ import java.util.Collections;
 
 public class Meld {
 
-    /**
-     * **********************
-     * INSTANCE VARIABLE(S) *
-	 ***********************
-     */
     private ArrayList<Tile> tiles;
     private int score;
 
-    /**
-     * *************
-     * CONSTRUCTOR *
-	 **************
-     */
     public Meld() {
         this.tiles = new ArrayList<>();
         this.score = 0;
     }
 
-    /**
-     * ***********
-     * GETTER(S) *
-	 ************
-     */
     /**
      * @return this meld
      */
@@ -54,11 +39,6 @@ public class Meld {
         return this.score;
     }
 
-    /**
-     * **********
-     * WRAPPERS *
-	 ***********
-     */
     /**
      * Add tile to meld
      *
@@ -96,11 +76,6 @@ public class Meld {
         return this.tiles.size();
     }
 
-    /**
-     * ******
-     * ELSE *
-	 *******
-     */
     /**
      * Remove duplicate tiles in this meld
      */
@@ -142,7 +117,7 @@ public class Meld {
      * @return a sorted list
      */
     public ArrayList<Tile> sort_rank(ArrayList<Tile> tiles_list) {
-        for (int i = 0; i < tiles_list.size(); i++) {
+        for (Tile tiles_list1 : tiles_list) {
             for (int j = 0; j < tiles_list.size() - 1; j++) {
                 if (tiles_list.get(j).get_rank() >= tiles_list.get(j + 1).get_rank()) {
                     Collections.swap(tiles_list, j, j + 1);
@@ -189,11 +164,6 @@ public class Meld {
         this.tiles.addAll(orange);
     }
 
-    /**
-     * *******
-     * PRINT *
-	 ********
-     */
     /**
      * Print meld to screen
      */

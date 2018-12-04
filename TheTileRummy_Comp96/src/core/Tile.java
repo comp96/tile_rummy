@@ -8,28 +8,13 @@ import java.util.HashMap;
  */
 public class Tile {
 
-    /**
-     * *******************
-     * CLASS VARIABLE(S) *
-	 ********************
-     */
     protected final static String[] COLORS = {"R", "B", "G", "O", "None"};
     protected final static String[] RANKS = {"None", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"};
 
-    /**
-     * **********************
-     * INSTANCE VARIABLE(S) *
-	 ***********************
-     */
     private String color;
     private String rank;
     private HashMap<String, Integer> rank_value;
 
-    /**
-     * *************
-     * CONSTRUCTOR *
-	 **************
-     */
     /**
      * Creates a tile with specified color and rank
      *
@@ -46,11 +31,6 @@ public class Tile {
         }
     }
 
-    /**
-     * ***********
-     * GETTER(S) *
-	 ************
-     */
     /**
      * @return the color of this tile (must be a string from tile.colors)
      */
@@ -79,11 +59,6 @@ public class Tile {
     }
 
     /**
-     * ******
-     * ELSE *
-	 *******
-     */
-    /**
      * @param tile
      * @return true if two tiles being compared have the same rank
      */
@@ -107,11 +82,6 @@ public class Tile {
         return this.same_color(tile) && (this.get_rank() - tile.get_rank() == 1);
     }
 
-    /**
-     * *******
-     * PRINT *
-	 ********
-     */
     /**
      * Outputs tile's rank and color as a string
      *

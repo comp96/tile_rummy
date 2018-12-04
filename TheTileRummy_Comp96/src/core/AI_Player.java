@@ -7,16 +7,8 @@ import core.Interfaces.*;
  */
 public class AI_Player extends Player {
 
-    /**
-     * **********************
-     * INSTANCE VARIABLE(S) * **********************
-     */
     private final Strategy strategy;
 
-    /**
-     * *************
-     * CONSTRUCTOR * *************
-     */
     /**
      * @param play_strategy strategy of the player
      */
@@ -26,20 +18,12 @@ public class AI_Player extends Player {
     }
 
     /**
-     * ***********
-     * GETTER(S) * ***********
-     */
-    /**
      * @return this player's strategy
      */
     public Strategy get_strategy() {
         return this.strategy;
     }
 
-    /**
-     * ******
-     * ELSE * ******
-     */
     /**
      * Play turn depending on strategy
      *

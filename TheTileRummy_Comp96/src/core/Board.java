@@ -7,27 +7,12 @@ import java.util.ArrayList;
  */
 public class Board {
 
-    /**
-     * **********************
-     * INSTANCE VARIABLE(S) *
-	 ***********************
-     */
     private ArrayList<Meld> board;
 
-    /**
-     * *************
-     * CONSTRUCTOR *
-	 **************
-     */
     public Board() {
         this.board = new ArrayList<>();
     }
 
-    /**
-     * **********
-     * WRAPPERS *
-	 ***********
-     */
     /**
      * Add a meld to the board
      *
@@ -52,11 +37,6 @@ public class Board {
     }
 
     /**
-     * ***********
-     * GETTER(S) *
-	 ************
-     */
-    /**
      * @return the ArrayList of Melds that is stored on the board
      */
     public ArrayList<Meld> get_board() {
@@ -71,11 +51,6 @@ public class Board {
         return this.board.get(i);
     }
 
-    /**
-     * *******
-     * PRINT *
-	 ********
-     */
     /**
      * Print to screen all melds on the board
      */

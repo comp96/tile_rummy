@@ -103,7 +103,6 @@ public class Human_Player extends Player {
             default:
                 text.print_invalid_input();
                 draw_or_play(board, stock);
-                return;
         }
     }
 }

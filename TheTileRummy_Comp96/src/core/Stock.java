@@ -10,27 +10,14 @@ import java.util.Stack;
  */
 public class Stock {
 
-    /**
-     * *******************
-     * CLASS VARIABLE(S) *
-	 ********************
-     */
+    
     private final static int stock_size = 104;
 
-    /**
-     * **********************
-     * INSTANCE VARIABLE(S) *
-	 ***********************
-     */
     private Tile[] source_stock;
     private Stack<Tile> actual_stock;
     private ArrayList<Tile> drawn_tiles;
 
-    /**
-     * *************
-     * CONSTRUCTOR *
-	 **************
-     */
+   
     public Stock() {
         this.source_stock = new Tile[stock_size];
         this.actual_stock = new Stack<>();
@@ -38,11 +25,6 @@ public class Stock {
         make_stock(this.actual_stock);
     }
 
-    /**
-     * ***********
-     * GETTER(S) *
-	 ************
-     */
     /**
      * @return stock with all of the game's tiles
      */

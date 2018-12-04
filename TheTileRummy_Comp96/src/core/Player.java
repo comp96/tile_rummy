@@ -5,29 +5,14 @@ import core.Interfaces.*;
 
 public class Player implements Observer, Subject {
 
-    /**
-     * *******************
-     * CLASS VARIABLE(S) *
-	 ********************
-     */
     protected static int player_id = 0; // e.g. player_1, 2, 3
 
-    /**
-     * **********************
-     * INSTANCE VARIABLE(S) *
-	 ***********************
-     */
     private String name;
     private Hand hand;
     private ArrayList<Observer> observers;
     private int max_hand_offset;
     private int melds_played;
 
-    /**
-     * *************
-     * CONSTRUCTOR *
-	 **************
-     */
     public Player(String name) {
         player_id++;
 
@@ -38,11 +23,6 @@ public class Player implements Observer, Subject {
         this.melds_played = 0;
     }
 
-    /**
-     * ***********
-     * GETTER(S) *
-	 ************
-     */
     /**
      * @return this player's hand
      */
@@ -79,11 +59,6 @@ public class Player implements Observer, Subject {
     }
 
     /**
-     * ***********
-     * SETTER(S) *
-	 ************
-     */
-    /**
      * @param set_to is the value this player's max_hand_offset will be set to
      */
     public void set_max_hand_offset(int set_to) {
@@ -97,11 +72,6 @@ public class Player implements Observer, Subject {
         this.melds_played = set_to;
     }
 
-    /**
-     * ******
-     * ELSE *
-	 *******
-     */
     /**
      * Add method to arbitrarily add tiles to this player's hand To be used for
      * testing purposes
@@ -261,7 +231,8 @@ public class Player implements Observer, Subject {
     /**
      * Play a single tile Maybe we can use tile's index
      *
-     * @param meld
+     * @param board
+     * @param index
      * @param tile
      */
     public void play_tile(Board board, int index, Tile tile) {
@@ -302,11 +273,7 @@ public class Player implements Observer, Subject {
      * @return true if a player has played all the tiles in its hand
      */
     public boolean winner() {
-        if (this.hand.size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.hand.size() == 0;
     }
 
     /**
@@ -354,11 +321,7 @@ public class Player implements Observer, Subject {
                 }
             }
         }
-        if (count < meld.size()) {
-            return false;
-        } else {
-            return true;
-        }
+        return count >= meld.size();
     }
 
     /**
@@ -376,11 +339,7 @@ public class Player implements Observer, Subject {
             }
         }
 
-        if (count < meld.size()) {
-            return false;
-        } else {
-            return true;
-        }
+        return count >= meld.size();
     }
 
     /**
@@ -425,10 +384,7 @@ public class Player implements Observer, Subject {
      * @return true if player can play its all tiles (using board) else false
      */
     public boolean can_play_all(Board board) {
-        int count = 0; // Counting how many tiles can be added to board
-
-//r7,r8     <=hand
-//{r4,r5,r6} <=board
+        int count = 0;
         for (Tile tile : this.hand.get_hand_meld().get_tiles()) {
             for (Meld meld : board.get_board()) {
                 if (meld.is_group()) {
@@ -444,7 +400,6 @@ public class Player implements Observer, Subject {
             }
         }
 
-        //      System.out.println("count is " + count + " , hand is " + hand.size());
         if (count == hand.size()) { // Check if all tiles has added means user can play all tiles with table
             return true;
         } else {
@@ -452,11 +407,6 @@ public class Player implements Observer, Subject {
         }
     }
 
-    /**
-     * *******************
-     * INTERFACE METHODS *
-	 ********************
-     */
     // Observer
     @Override
     public void register(Observer new_observer) {
@@ -486,11 +436,6 @@ public class Player implements Observer, Subject {
         }
     }
 
-    /**
-     * *******
-     * PRINT *
-	 ********
-     */
     /**
      * Print this player's hand
      */
