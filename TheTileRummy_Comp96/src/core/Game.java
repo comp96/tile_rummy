@@ -1,94 +1,45 @@
 package core;
 
-import java.util.ArrayList;
-import core.Interfaces.*;
 import core.Strategies.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 /**
- * @author Luis, Heba, Alex
+ * @author comp96
  */
 public class Game {
 
     /**
-     * CLASS VARIABLE(S) 
+     * CLASS VARIABLE(S)
      */
-    private final static int initial_hand_size = 14;	// Initial hand size will always be the same for all Games
-    private final static int winning_hand_size = 0;
+    private final static int INITIAL_HAND_SIZE = 14;	// Initial hand size will always be the same for all Games
+    private final static int WINNING_HAND_SIZE = 0;
     private static Text_UI text = new Text_UI();
 
     private static int choice_int;
     private static String choice_str;
 
-    private static Strategy strategy_1 = new Strategy_1();
-    private static Strategy strategy_2 = new Strategy_2();
-    private static Strategy strategy_3 = new Strategy_3();
-
     /**
-     * **********************
-     * INSTANCE VARIABLE(S) * **********************
+     * INSTANCE VARIABLE(S)
      */
     private Board board; // if this.board.get_size() == 0, then no melds have been played
     private Stock stock;
     private boolean end_game;
+    private Settings gameSettings;
 
-    private int turn;
-    private int round;
-
-    private Human_Player player_h;
-    private AI_Player player_1;
-    private AI_Player player_2;
-    private AI_Player player_3;
-
-    private ArrayList<Player> players;
-
-    /**
-     * *************
-     * CONSTRUCTOR * *************
-     */
     public Game() {
         this.board = new Board();
         this.stock = new Stock();
         this.end_game = false;
 
-        this.turn = 0;
-        this.round = 0;
+        gameSettings = new Settings();
+        gameSettings.setupSettings();
 
-        this.player_h = new Human_Player("player_h");
-        this.player_1 = new AI_Player(strategy_1);
-        this.player_2 = new AI_Player(strategy_2);
-        this.player_3 = new AI_Player(strategy_3);
-
-        this.players = new ArrayList<>();
-        this.players.add(player_h);
-        this.players.add(player_1);
-        this.players.add(player_2);
-        this.players.add(player_3);
-
-        for (int i = 0; i < this.players.size(); ++i) {
-            if (!this.players.get(i).get_name().equals("player_3")) {
-                this.players.get(i).register(player_3);
-            }
+        for (Player p : gameSettings.getPlayers()) {
+            p.register(p);
+            p.draw(stock, INITIAL_HAND_SIZE);
+            p.print_hand();
         }
-    }
-
-    /**
-     * ******
-     * ELSE * ******
-     */
-    /**
-     * Set up game
-     */
-    public void set_up() {
-        text.print("Setup: ");
-
-        for (int i = 0; i < this.players.size(); ++i) {
-            this.players.get(i).draw(stock, initial_hand_size);
-            this.players.get(i).print_hand();
-        }
-
-        text.print_divider();
     }
 
     /**
@@ -103,7 +54,7 @@ public class Game {
      * @param player whose hand size will be checked
      */
     public void check_end_game(Player player) {
-        if (player.get_hand().size() <= winning_hand_size || this.stock.is_Empty()) {
+        if (player.get_hand().size() <= WINNING_HAND_SIZE || this.stock.is_Empty()) {
             this.end_game = true;	// To test we can change this from == 0 to == 10
         }
     }
@@ -112,12 +63,11 @@ public class Game {
      * To Change Settings of the Game(players choice human or AI)
      */
     public void settings() {
-        
-        try{
-            BufferedWriter br=new BufferedWriter(new FileWriter("settings.txt"));
-            
-        }
-        catch(Exception e){
+
+        try {
+            BufferedWriter br = new BufferedWriter(new FileWriter("settings.txt"));
+
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -128,191 +78,62 @@ public class Game {
     public void play_game() {
 
         text.print_welcome();
-        set_up();
-
-        // As soon as a player has zero tiles at the end of its turn, end game
         while (!this.end_game) {
-            player_h_turn();
-            for (int i = 1; i < this.players.size(); ++i) { // Assume player_h is at index 0
-                if (!this.end_game) {
-                    player_n_turn();
+            Player lastPlayer = null;
+            int count = 0;
+            for (Player p : gameSettings.getPlayers()) {
+                //if player is a human player
+                if (p instanceof Human_Player) {
+                    Human_Player player = (Human_Player) p;
+                    player_h_turn(player);
+                } else {        //if player is a AI player
+                    AI_Player player = (AI_Player) p;
+                    text.print_turn_start(player);
+                    player.play_turn(this.board, this.stock);
+                    //if last player is AI and have 3rd strategy 
+                    if (player.get_strategy() instanceof Strategy_3) {
+                        player.set_max_hand_offset(0);
+                    }
                 }
+                //checking game is end or not
+                check_end_game(lastPlayer);
+                lastPlayer = p; //saving last player instance for further use
+            }
+            //notify all observers
+            if (lastPlayer != null) {
+                text.print_turn_end(lastPlayer, board, this.board.size());
+                lastPlayer.notify_observers();
+
             }
         }
-
-        for (int i = 0; i < this.players.size(); ++i) {
-            if (this.players.get(i).get_hand().size() <= winning_hand_size) {
-                text.print(this.players.get(i).get_name() + " has won the game");
+        for (Player p : gameSettings.getPlayers()) {
+            if (p.get_hand().size() <= WINNING_HAND_SIZE) {
+                text.print(p.get_name() + " has won the game");
             }
         }
-    }
-
-    /**
-     *
-     */
-    public void play_another_meld(Player player) {
-        if (player.get_hand().has_melds()) {
-            text.print("Play another meld (y/n)?");
-            choice_str = text.get_scanner().next();
-
-            switch (choice_str) {
-                case "y":
-                    choose_group_or_run();
-                    break;
-                case "n":
-                    break;
-                default:
-                    text.print_invalid_input();
-                    choose_group_or_run();
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Helper function for player_h_turn
-     *
-     * @param groups_or_runs
-     */
-    public void choose_meld(ArrayList<Meld> groups_or_runs) {
-        int groups_or_runs_size = groups_or_runs.size() - 1;
-        text.print("\nWhich meld would player_h like to play (0-" + groups_or_runs_size + "): ");
-        choice_int = text.get_scanner().nextInt();
-
-        if (choice_int <= groups_or_runs_size) {
-            this.player_h.play_meld_at_index(choice_int, this.board, this.stock, groups_or_runs);
-            player_h.print_hand_and_melds();
-            play_another_meld(player_h);
-        } else {
-            text.print_invalid_input();
-            choose_meld(groups_or_runs);
-        }
-    }
-
-    /**
-     * A second helper function for player_h_turn
-     */
-    public void choose_group_or_run() {
-        text.print("\nWould player_h like to play a group or run (g/r): ");
-        choice_str = text.get_scanner().next();
-
-        switch (choice_str) {
-            case "g":
-                choose_meld(this.player_h.get_hand().get_groups());
-                break;
-            case "r":
-                choose_meld(this.player_h.get_hand().get_runs());
-                break;
-            default:
-                text.print_invalid_input();
-                choose_group_or_run();
-                break;
-        }
-    }
-
-    /**
-     * A third helper function for player_h_turn
-     */
-    public void draw_or_play() {
-        text.print("\nPlease choose 'd' to draw or 'p' to play:");
-        choice_str = text.get_scanner().next();
-
-        switch (choice_str) {
-            case "d":
-                this.player_h.draw(this.stock, 1);
-                break;
-            case "p":
-                choose_group_or_run();
-                break;
-            default:
-                text.print_invalid_input();
-                draw_or_play();
-                return;
-        }
-    }
-
-    /**
-     * Fourth helper function for player_h_turn
-     */
-    public void player_h_play_turn() {
-        if (this.player_h.get_melds_played() > 0 && this.player_h.get_hand().has_melds()) {
-            this.player_h.get_hand().print_melds();
-            draw_or_play();
-        } else if (this.player_h.get_melds_played() == 0 && this.player_h.get_hand().has_30_plus()) {
-            this.player_h.get_hand().print_melds();
-            draw_or_play();
-        } else {
-            text.print_not_enough_points(player_h);
-            this.player_h.draw(this.stock, 1);
-            text.print_tile_drawn(player_h, stock);
-        }
-    }
-
-    /**
-     * Helper function that handles end of turn behavior
-     */
-    public void end_turn(Player player, int original_board_size) {
-        text.print_turn_end(player, board, original_board_size);
-        if (!player.get_name().equals("player_3")) {
-            player.notify_observers();
-        } else {
-            this.player_3.set_max_hand_offset(0);
-        }
-        //		text.print_max_hand_offset(this.player_3); // Only here for testing purposes, meant to be deleted or commented out
-        check_end_game(player);
-        this.turn += 1;
     }
 
     /**
      * Human player's turn
      *
-     * @param board on which he is playing with
-     * @param stock with which he playing (stock of tiles)
+     * @param player
      */
-    public void player_h_turn() {
+    public void player_h_turn(Human_Player player) {
         int original_board_size = this.board.size();
+        text.print_turn_start(player);
 
-        text.print_turn_start(player_h);
-        player_h_play_turn();
-        end_turn(player_h, original_board_size);
-    }
-
-    /**
-     * Turn for AI players Use this.turn and this.round to calculate which AI
-     * player should play this turn
-     *
-     * turn 0 -> player_h, turn 4 -> player_h turn 1 -> player_1, turn 5 ->
-     * player_1 turn 2 -> player_2, turn 6 -> player_2 turn 3 -> player_3, turn
-     * 7 -> player_3
-     */
-    public void player_n_turn() {
-        int subtract = (4 * this.round);
-        int player_turn = this.turn - subtract;
-        int original_board_size = this.board.size();
-
-        switch (player_turn) {
-            case 1:
-                text.print_turn_start(this.player_1);
-                this.player_1.play_turn(this.board, this.stock);
-                end_turn(player_1, original_board_size);
-
-                break;
-            case 2:
-                text.print_turn_start(this.player_2);
-                this.player_2.play_turn(this.board, this.stock);
-                end_turn(player_2, original_board_size);
-
-                break;
-            case 3:
-                text.print_turn_start(this.player_3);
-                this.player_3.play_turn(this.board, this.stock);
-                end_turn(player_3, original_board_size);
-
-                this.round += 1;
-                break;
-            default:
-                break;
+        if (player.get_melds_played() > 0 && player.get_hand().has_melds()) {
+            player.get_hand().print_melds();
+            player.draw_or_play(board, stock);
+        } else if (player.get_melds_played() == 0 && player.get_hand().has_30_plus()) {
+            player.get_hand().print_melds();
+            player.draw_or_play(board, stock);
+        } else {
+            text.print_not_enough_points(player);
+            player.draw(this.stock, 1);
+            text.print_tile_drawn(player, stock);
         }
+
     }
 
 }
