@@ -143,7 +143,27 @@ public class SettingsTest extends TestCase {
 
     }
 
-   
+    /**
+     * Test of 4 human player exists or not
+     */
+    @Test
+    public void testFourHumanPlayers() {
+        System.out.println("testFourHumanPlayers");
+        Settings instance = new Settings();
+        instance.setNumOfPlayers(4);
+        Player p1 = new Human_Player("p1");
+        Player p2 = new Human_Player("p2");
+        Player p3 = new Human_Player("p3");
+        Player p4 = new Human_Player("p4");
+        instance.getPlayers().add(p1);
+        instance.getPlayers().add(p2);
+        instance.getPlayers().add(p3);
+        instance.getPlayers().add(p4);
+
+        int noOfhumanPlayer = Math.abs(instance.getNumOfPlayers() - instance.getAI_PlayerCount());
+        assertEquals(4, noOfhumanPlayer);
+
+    }
 
     /**
      * Test of 4 human player exists or not
