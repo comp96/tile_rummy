@@ -8,8 +8,8 @@ import java.util.HashMap;
  */
 public class Tile {
 
-    protected final static String[] COLORS = {"R", "B", "G", "O", "None"};
-    protected final static String[] RANKS = {"None", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"};
+    protected final static String[] COLORS = {"R", "B", "G", "O", "J"};
+    protected final static String[] RANKS = {"J", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"};
 
     private String color;
     private String rank;
@@ -82,6 +82,9 @@ public class Tile {
         return this.same_color(tile) && (this.get_rank() - tile.get_rank() == 1);
     }
 
+    public boolean isJoker(){
+        return this.rank.equals(RANKS[0]);
+    }
     /**
      * Outputs tile's rank and color as a string
      *
@@ -90,12 +93,12 @@ public class Tile {
     @Override
     public final String toString() {
         if (this.rank.equals(RANKS[0])) {
-            return "no tile";
+            return "Joker";
         }
 
         int r = get_rank();
 
-        if (r > 0 && r < 14) {
+        if (r >= 0 && r < 14) {
             return get_color().substring(0, 1) + r;
         } else {
             return "no tile";

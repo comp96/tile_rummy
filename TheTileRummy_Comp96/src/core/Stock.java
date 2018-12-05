@@ -10,7 +10,7 @@ import java.util.Stack;
  */
 public class Stock {
 
-    private final static int STOCK_SIZE = 104;
+    private final static int STOCK_SIZE = 140;
 
     private Tile[] source_stock;
     private Stack<Tile> actual_stock;
@@ -68,8 +68,8 @@ public class Stock {
     public void populate_source_stock() {
         int index = 0;
 
-        for (int r = 1; r < 14; r += 1) {
-            for (int s = 0; s < 4; s += 1) {
+        for (int r = 0; r < 14; r += 1) {
+            for (int s = 0; s <= 4; s += 1) {
                 this.source_stock[index++] = new Tile(Tile.COLORS[s], Tile.RANKS[r]);
                 this.source_stock[index++] = new Tile(Tile.COLORS[s], Tile.RANKS[r]);
             }

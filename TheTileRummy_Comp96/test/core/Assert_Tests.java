@@ -120,7 +120,7 @@ public class Assert_Tests extends TestCase {
         assertEquals(0, player_h.get_hand().size()); // check hand is empty
 
         Tile temp = stock.peek();
-
+        System.out.println(temp.toString());
         player_h.draw(stock, 1);
         assertEquals(1, player_h.get_hand().size()); // check there's one card in hand after drawing
 
@@ -354,19 +354,9 @@ public class Assert_Tests extends TestCase {
         player_h.draw(stock, 14);
 
         if (player_h.get_hand().has_melds()) {
-            //			player_h.get_hand().print_melds();
-
-            //			text.print("Hand and board before playing meld");
-            //			player_h.get_hand().print_hand(); 
-            //			board.print_board();
             player_h.play_meld(player_h.get_hand().get_best_meld(), board, stock);
-
-            //			text.print("Hand and board after playing meld");
-            //			player_h.get_hand().print_hand();
-            //			board.print_board();
             assertEquals(1, board.size());
         } else {
-            //			System.out.println("No melds in hand");
             assertEquals(0, board.size());
         }
     }

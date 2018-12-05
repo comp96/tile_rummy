@@ -31,6 +31,7 @@ public class SettingsTest extends TestCase {
     AI_Player player_2 = new AI_Player(strategy_2);
     AI_Player player_3 = new AI_Player(strategy_3);
 
+    Tile jocker = new Tile("J", "J");
     Tile r_1 = new Tile("R", "1");
     Tile r_1_2 = new Tile("R", "1");
     Tile r_2 = new Tile("R", "2");
@@ -208,6 +209,21 @@ public class SettingsTest extends TestCase {
         assertEquals(2, noOfhumanPlayer);
 
     }
+     /**
+     * Test of Jokers In Stock
+     */
+    @Test
+    public void testJokersInStock() {
+        System.out.println("testJokersInStock");
+        boolean haveJocker=false;
+        for(Tile tile:stock.get_stock()){
+            if(tile.isJoker()){
+                haveJocker=true;
+            }
+        }
+        assertTrue(haveJocker);
+
+    }
 
     /**
      * Test of Human Can Play Several Groups
@@ -281,5 +297,6 @@ public class SettingsTest extends TestCase {
         
         
     }
+    
 
 }
