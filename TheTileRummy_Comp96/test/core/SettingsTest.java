@@ -143,6 +143,44 @@ public class SettingsTest extends TestCase {
 
     }
 
+   
+
+    /**
+     * Test of Human Can Play Several Groups
+     */
+    @Test
+    public void testHumanCanPlaySeveralGroups() {
+        System.out.println("testHumanCanPlaySeveralGroups");
+        player_h.add(r_10, stock);
+        player_h.add(b_10, stock);
+        player_h.add(g_10, stock);
+        
+        player_h.add(r_11, stock);
+        player_h.add(b_11, stock);
+        player_h.add(g_11, stock);
+        
+        player_h.add(r_12, stock);
+        player_h.add(b_12, stock);
+        player_h.add(g_12, stock);
+        
+        player_h.add(r_13, stock);
+        player_h.add(b_13, stock);
+        player_h.add(g_13, stock);
+
+        player_h.get_hand().find_groups();
+        
+        
+        player_h.play_meld_at_index(0, board, stock, player_h.get_hand().get_groups());
+        assertEquals(3,player_h.get_hand().get_groups().size());
+        player_h.play_meld_at_index(0, board, stock, player_h.get_hand().get_groups());
+        assertEquals(2,player_h.get_hand().get_groups().size());
+        player_h.play_meld_at_index(0, board, stock, player_h.get_hand().get_groups());
+        assertEquals(1,player_h.get_hand().get_groups().size());
+        player_h.play_meld_at_index(0, board, stock, player_h.get_hand().get_groups());
+        assertEquals(0,player_h.get_hand().get_groups().size());
+        
+        
+    }
     /**
      * Test of Human Can Play Several Runs
      */
