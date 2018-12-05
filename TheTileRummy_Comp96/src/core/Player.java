@@ -12,7 +12,7 @@ public class Player implements Observer, Subject {
     private ArrayList<Observer> observers;
     private int max_hand_offset;
     private int melds_played;
-    
+
     public Player(String name) {
         player_id++;
 
@@ -154,7 +154,7 @@ public class Player implements Observer, Subject {
         }
 
         board.add(temp);
-        
+
         for (int j = group_or_run.get(meld_index).size() - 1; j >= 0; --j) {
             this.hand.get_hand_meld().get_tiles().remove(group_or_run.get(meld_index).get_tiles().remove(j));
         }
@@ -439,7 +439,8 @@ public class Player implements Observer, Subject {
 
     /**
      * return this player's hand
-     * @return 
+     *
+     * @return
      */
     public String print_hand() {
         return this.name + "s hand is: " + this.hand.hand_to_string();
@@ -447,10 +448,11 @@ public class Player implements Observer, Subject {
 
     /**
      * Print this player's hand and melds in it
-     * @return 
+     *
+     * @return
      */
     public String print_hand_and_melds() {
-        return this.print_hand()+"\n"+this.hand.print_melds();
+        return this.print_hand() + "\n" + this.hand.print_melds();
 
     }
 

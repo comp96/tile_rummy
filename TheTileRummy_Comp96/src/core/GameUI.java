@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  *
  * @author Comp96
  */
-public class GameUI extends javax.swing.JFrame implements TimerListner{
+public class GameUI extends javax.swing.JFrame implements TimerListner {
 
     private final static int INITIAL_HAND_SIZE = 14;	// Initial hand size will always be the same for all Games
     private final static int WINNING_HAND_SIZE = 0;
@@ -22,7 +22,7 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
     private Player lastPlayer = null;
     private boolean haveInitialThirtee;
     private TimerFrame timer;
-   
+
     /**
      * Creates new form GameUI
      */
@@ -51,8 +51,8 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
                 play_game();
             }
         };
-        timer=new TimerFrame(this);
-        
+        timer = new TimerFrame(this);
+
         threadObject = new Thread(runnable);
         threadObject.start();
 
@@ -78,7 +78,7 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
             for (Player p : gameSettings.getPlayers()) {
                 timer.setVisible(true);
                 timer.start();
-               // timerThread.start();
+                // timerThread.start();
                 jLabel_player_name.setText(p.get_name());
                 //if player is a human player
                 if (p instanceof Human_Player) {
@@ -99,9 +99,9 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
                 check_end_game(p);
                 lastPlayer = p; //saving last player instance for further use
                 jTextArea_players.setText(printAllPlayersHands());
-                if(p instanceof Human_Player){
+                if (p instanceof Human_Player) {
                     if (!paused.get()) {
-                    paused.set(true);
+                        paused.set(true);
                     }
                     if (paused.get()) {
                         synchronized (threadObject) {
@@ -113,7 +113,7 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
                         }
                     }
                 }
-                
+
             }
             //notify all observers
             if (lastPlayer != null) {
@@ -778,7 +778,6 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
             jButton_Draw.setEnabled(true);
         }
     }//GEN-LAST:event_jButton_RunActionPerformed
-    
 
     /**
      * @param args the command line arguments
@@ -813,7 +812,7 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
             public void run() {
                 GameUI obj = new GameUI();
                 obj.setVisible(true);
-                
+
             }
         });
     }
@@ -879,7 +878,7 @@ public class GameUI extends javax.swing.JFrame implements TimerListner{
             threadObject.notify();
         }
         timer.dispose();
-        timer=new TimerFrame(this);
+        timer = new TimerFrame(this);
         timer.setVisible(true);
         timer.start();
     }

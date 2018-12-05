@@ -19,12 +19,10 @@ public class Settings {
     private int numOfPlayers;
     private final Text_UI mText_UI;
     private ArrayList<Player> players;
-    private int AI_PlayerCount;
 
     public Settings() {
         mText_UI = new Text_UI();
         players = new ArrayList<>();
-        AI_PlayerCount = 0;
         numOfPlayers = 0;
     }
 
@@ -49,7 +47,6 @@ public class Settings {
                     break;
                 }
                 case 2: {
-                    setAI_PlayerCount(getAI_PlayerCount() + 1);
                     Player p1;
                     int strategy_choice= Integer.parseInt(JOptionPane.showInputDialog("Choose Strategy Of layer(1,2 or 3)"));
                     switch (strategy_choice) {
@@ -67,6 +64,7 @@ public class Settings {
                     break;
                 }
             }//end of switch
+            numOfPlayers++;
         }
     }
 
@@ -123,14 +121,14 @@ public class Settings {
      * @return the AI_PlayerCount
      */
     public int getAI_PlayerCount() {
+        int AI_PlayerCount=0;
+        for(Player p:getPlayers()){
+            if(p instanceof AI_Player){
+                AI_PlayerCount++;
+            }
+        }
         return AI_PlayerCount;
     }
 
-    /**
-     * @param AI_PlayerCount the AI_PlayerCount to set
-     */
-    public void setAI_PlayerCount(int AI_PlayerCount) {
-        this.AI_PlayerCount = AI_PlayerCount;
-    }
 
 }

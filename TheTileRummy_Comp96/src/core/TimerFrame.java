@@ -17,13 +17,14 @@ public class TimerFrame extends javax.swing.JFrame {
     private long duration = 120000;
     //private long duration = 12000;
     private TimerListner listner;
+
     /**
      * Creates new form TimerFrame
      */
     public TimerFrame(TimerListner listner) {
         initComponents();
         setResizable(false);
-        this.listner=listner;
+        this.listner = listner;
         timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,7 +36,7 @@ public class TimerFrame extends javax.swing.JFrame {
                 if (clockTime >= duration) {
                     clockTime = duration;
                     stop();
-                    
+
                 }
                 SimpleDateFormat df = new SimpleDateFormat("mm:ss:SSS");
                 jLabel_timer.setText(df.format(duration - clockTime));
@@ -51,20 +52,21 @@ public class TimerFrame extends javax.swing.JFrame {
         }
 
     }
-    public void stop_and_trigger()
-    {
-         if (timer.isRunning()) {
-             timer.stop();
-             listner.timerEnd();
-         }
+
+    public void stop_and_trigger() {
+        if (timer.isRunning()) {
+            timer.stop();
+            listner.timerEnd();
+        }
     }
-    public void stop()
-    {
-         if (timer.isRunning()) {
-             timer.stop();
-         }
+
+    public void stop() {
+        if (timer.isRunning()) {
+            timer.stop();
+        }
     }
-    public boolean isRunning(){
+
+    public boolean isRunning() {
         return timer.isRunning();
     }
 
@@ -126,7 +128,6 @@ public class TimerFrame extends javax.swing.JFrame {
 
         setBounds(1100, 700, 320, 170);
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
