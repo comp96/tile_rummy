@@ -54,11 +54,13 @@ public class Board {
     /**
      * Print to screen all melds on the board
      */
-    public void print_board() {
-        System.out.println("Melds on board are: ");
+    public String print_board() {
+        String str="";
+        str+="Melds on board are: ";
         for (int i = 0; i < this.board.size(); i++) {
-            this.board.get(i).print_meld();
+            str+="\n"+this.board.get(i).print_meld();
         }
+        return str;
     }
 
     /**

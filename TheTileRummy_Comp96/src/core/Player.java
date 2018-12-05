@@ -12,7 +12,7 @@ public class Player implements Observer, Subject {
     private ArrayList<Observer> observers;
     private int max_hand_offset;
     private int melds_played;
-
+    
     public Player(String name) {
         player_id++;
 
@@ -145,7 +145,7 @@ public class Player implements Observer, Subject {
      * @param stock
      * @param group_or_run
      */
-    public void play_meld_at_index(int meld_index, Board board, Stock stock, ArrayList<Meld> group_or_run) {
+    public Meld play_meld_at_index(int meld_index, Board board, Stock stock, ArrayList<Meld> group_or_run) {
         Meld temp = new Meld();
 
         //copy of the meld a player can play 
@@ -154,13 +154,14 @@ public class Player implements Observer, Subject {
         }
 
         board.add(temp);
-
+        
         for (int j = group_or_run.get(meld_index).size() - 1; j >= 0; --j) {
             this.hand.get_hand_meld().get_tiles().remove(group_or_run.get(meld_index).get_tiles().remove(j));
         }
 
         this.melds_played += 1;
         this.get_hand().delete_empty_meld(group_or_run);
+        return temp;
     }
 
     /**

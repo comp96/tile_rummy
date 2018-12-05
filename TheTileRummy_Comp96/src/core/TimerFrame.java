@@ -51,11 +51,17 @@ public class TimerFrame extends javax.swing.JFrame {
         }
 
     }
-    public void stop()
+    public void stop_and_trigger()
     {
          if (timer.isRunning()) {
              timer.stop();
              listner.timerEnd();
+         }
+    }
+    public void stop()
+    {
+         if (timer.isRunning()) {
+             timer.stop();
          }
     }
     public boolean isRunning(){

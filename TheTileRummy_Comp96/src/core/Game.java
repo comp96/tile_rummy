@@ -62,7 +62,7 @@ public class Game {
                 //if player is a human player
                 if (p instanceof Human_Player) {
                     Human_Player player = (Human_Player) p;
-                    player_h_turn(player);
+                   // player_h_turn(player);
                 } else {        //if player is a AI player
                     AI_Player player = (AI_Player) p;
                     text.print_turn_start(player);
@@ -95,7 +95,7 @@ public class Game {
      *
      * @param player
      */
-    public void player_h_turn(Human_Player player) {
+    /*public void player_h_turn(Human_Player player) {
         text.print_turn_start(player);
 
         if (player.get_melds_played() > 0 && player.get_hand().has_melds()) {
@@ -110,6 +110,6 @@ public class Game {
             text.print_tile_drawn(player, stock);
         }
 
-    }
+    }*/
 
 }

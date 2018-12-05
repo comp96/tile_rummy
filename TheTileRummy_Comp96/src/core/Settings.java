@@ -44,14 +44,15 @@ public class Settings {
                 case 1: {
                     
                     System.out.println("Enter Name of Player ("+(i+1)+"/"+numOfPlayers+")");
-                    Player p1 = new Human_Player(JOptionPane.showInputDialog("Enter Name of Player ("+(i+1)+"/"+numOfPlayers+")"));
+                    Player p1 = new Human_Player(JOptionPane.showInputDialog("Enter Name of Player ("+(i+1)+"/"+numOfPlayers+")").toUpperCase());
                     getPlayers().add(p1);
                     break;
                 }
                 case 2: {
                     setAI_PlayerCount(getAI_PlayerCount() + 1);
                     Player p1;
-                    switch (getAI_PlayerCount()) {
+                    int strategy_choice= Integer.parseInt(JOptionPane.showInputDialog("Choose Strategy Of layer(1,2 or 3)"));
+                    switch (strategy_choice) {
                         case 1:
                             p1 = new AI_Player(getSTRATEGY_1());
                             break;
