@@ -16,11 +16,8 @@ public class Strategy_2 extends Moves implements Strategy {
                 while (player.get_hand().has_melds()) {
                     player.play_meld(player.get_hand().get_best_meld(), board, stock);
                 }
-                text.print_played_all(player);
             } else {
                 player.draw(stock, 1);
-                text.print_board_reuse(player);
-                text.print_tile_drawn(player, stock);
             }
         }
 

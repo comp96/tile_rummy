@@ -15,7 +15,6 @@ public class SettingsTest extends TestCase {
 
     Board board = new Board();
     Stock stock = new Stock();
-    Text_UI text = new Text_UI();
     Hand hand = new Hand();
 
     Meld meld_0 = new Meld();

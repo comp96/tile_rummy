@@ -144,6 +144,7 @@ public class Player implements Observer, Subject {
      * @param board
      * @param stock
      * @param group_or_run
+     * @return
      */
     public Meld play_meld_at_index(int meld_index, Board board, Stock stock, ArrayList<Meld> group_or_run) {
         Meld temp = new Meld();
@@ -191,8 +192,6 @@ public class Player implements Observer, Subject {
 
             this.melds_played += 1;
             this.get_hand().delete_empty_meld(group_or_run);
-        } else {
-            return;
         }
     }
 
@@ -214,6 +213,7 @@ public class Player implements Observer, Subject {
      *
      * @param board
      * @param stock
+     * @return
      */
     public boolean play_30_plus(Board board, Stock stock) {
         if (this.hand.has_30_plus()) {
@@ -401,11 +401,7 @@ public class Player implements Observer, Subject {
             }
         }
 
-        if (count == hand.size()) { // Check if all tiles has added means user can play all tiles with table
-            return true;
-        } else {
-            return false;
-        }
+        return count == hand.size(); // Check if all tiles has added means user can play all tiles with table
     }
 
     // Observer

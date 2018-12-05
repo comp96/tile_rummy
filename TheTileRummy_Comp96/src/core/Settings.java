@@ -17,25 +17,23 @@ public class Settings {
     private static final Strategy STRATEGY_2 = new Strategy_2();
     private static final Strategy STRATEGY_3 = new Strategy_3();
     private int numOfPlayers;
-    private final Text_UI mText_UI;
     private ArrayList<Player> players;
 
     public Settings() {
-        mText_UI = new Text_UI();
         players = new ArrayList<>();
         numOfPlayers = 0;
     }
 
     public void setupSettings() {
         while (true) {
-                numOfPlayers=Integer.parseInt(JOptionPane.showInputDialog("Enter Players Count(2-4)"));
-                if (numOfPlayers >=2 && numOfPlayers <=4) {
-                    break;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Enter Players Count(2-4)", "Wrong Input", JOptionPane.WARNING_MESSAGE);
-                }
+            numOfPlayers = Integer.parseInt(JOptionPane.showInputDialog("Enter Players Count(2-4)"));
+            if (numOfPlayers >= 2 && numOfPlayers <= 4) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter Players Count(2-4)", "Wrong Input", JOptionPane.WARNING_MESSAGE);
             }
-        
+        }
+
         int choice = 0;
         for (int i = 0; i < getNumOfPlayers(); i++) {
             System.out.println("Choose Players Type");
@@ -84,6 +82,7 @@ public class Settings {
             str += count + "- " + p.get_name() + "\n";
             count++;
         }
+
         str += "Choose An Option";
         int player_choice = 1;
         while (true) {
@@ -104,6 +103,7 @@ public class Settings {
                 temp.add(p);
             }
             count++;
+
         }
         players = new ArrayList<>(temp);
 
@@ -142,13 +142,6 @@ public class Settings {
      */
     public void setNumOfPlayers(int numOfPlayers) {
         this.numOfPlayers = numOfPlayers;
-    }
-
-    /**
-     * @return the mText_UI
-     */
-    public Text_UI getmText_UI() {
-        return mText_UI;
     }
 
     /**

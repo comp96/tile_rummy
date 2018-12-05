@@ -13,7 +13,6 @@ public class Assert_Tests extends TestCase {
 
     Board board = new Board();
     Stock stock = new Stock();
-    Text_UI text = new Text_UI();
     Hand hand = new Hand();
 
     Meld meld_0 = new Meld();
@@ -881,14 +880,12 @@ public class Assert_Tests extends TestCase {
      * All tiles in hand that can be played to melds board will be played
      */
     public void test_play_all_1() {
-        text.print_test_name("test_play_board_meld");
 
         player_3.add(g_12, stock);
         player_3.add(o_1, stock);
         player_3.add(g_8, stock);
 
         player_3.print_hand();
-        text.print_blank_line();
 
         meld_0.add(g_5);
         meld_0.add(g_7);
@@ -907,15 +904,11 @@ public class Assert_Tests extends TestCase {
         board.add(meld_0);
 
         board.print_board();
-        text.print_blank_line();
 
         player_3.play_tiles_to_table_melds(board);
-        text.print_played_meld(player_3);
 
         player_3.print_hand();
-        text.print_blank_line();
         board.print_board();
-        text.print_blank_line();
 
         assertTrue(player_2.can_play_all(board));
     }
@@ -924,7 +917,6 @@ public class Assert_Tests extends TestCase {
      * Test sorting a meld
      */
     public void test_sort_meld() {
-        //		text.print_test_name("sort_meld");
 
         meld_0.add(b_1);
         meld_0.add(r_6);
@@ -934,12 +926,7 @@ public class Assert_Tests extends TestCase {
         meld_0.add(o_11);
         meld_0.add(r_9);
 
-        //		meld_0.print_meld();
         meld_0.sort_meld();
-        //		meld_0.print_meld();
-
-        //		text.print("meld_0.get_tile(0) is: " + meld_0.get_tile(0).toString());
-        //		text.print("meld_0.get_tile(1) is: " + meld_0.get_tile(1).toString());
         assertTrue(meld_0.get_tile(1).ascending_rank_same_color(meld_0.get_tile(0)));
     }
 }

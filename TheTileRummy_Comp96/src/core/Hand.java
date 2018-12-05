@@ -95,6 +95,8 @@ public class Hand {
 
     /**
      * Add one tile to hand
+     *
+     * @param tile
      */
     public void add(Tile tile) {
         this.hand_meld.add(tile);
@@ -134,8 +136,6 @@ public class Hand {
                 if (this.hand_meld.get_tiles().get(i).same_rank(this.hand_meld.get_tiles().get(j))
                         && !this.hand_meld.get_tiles().get(i).same_color(this.hand_meld.get_tiles().get(j))) {
                     this.groups.get(meld_index).add(this.hand_meld.get_tiles().get(j));
-                } else {
-                    continue;
                 }
             } // At this point we should have a group to work with
             possible_group:
@@ -218,11 +218,7 @@ public class Hand {
      */
     public boolean has_groups() {
         this.find_groups();
-        if (this.groups.size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.groups.size() > 0;
     }
 
     /**
@@ -230,11 +226,7 @@ public class Hand {
      */
     public boolean has_runs() {
         this.find_runs();
-        if (this.runs.size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.runs.size() > 0;
     }
 
     /**
@@ -244,11 +236,7 @@ public class Hand {
      * @return true if there is at least one meld in this hand
      */
     public boolean has_melds() {
-        if (this.has_groups() || this.has_runs()) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.has_groups() || this.has_runs();
     }
 
     /**
@@ -268,11 +256,7 @@ public class Hand {
             score += this.runs.get(i).get_score();
         }
 
-        if (score > 29) {
-            return true;
-        } else {
-            return false;
-        }
+        return score > 29;
     }
 
     /**
@@ -341,40 +325,44 @@ public class Hand {
 
     /**
      * Print all groups in this.groups
-     * @return 
+     *
+     * @return
      */
     public String print_groups() {
-        String str="";
+        String str = "";
         for (int i = 0; i < this.groups.size(); ++i) {
-            str+=i + ": "+this.groups.get(i).print_meld();
+            str += i + ": " + this.groups.get(i).print_meld();
         }
         return str;
     }
 
     /**
      * Print all runs in this.runs
-     * @return 
+     *
+     * @return
      */
     public String print_runs() {
-        String str="";
+        String str = "";
         for (int i = 0; i < this.runs.size(); ++i) {
-            str+=i + ": "+this.runs.get(i).print_meld();
+            str += i + ": " + this.runs.get(i).print_meld();
         }
         return str;
     }
 
     /**
      * Print all groups and runs in this hand
+     *
+     * @return
      */
     public String print_melds() {
-        String str="";
+        String str = "";
         if (this.groups.size() > 0) {
-            str+="Group(s): ";
-            str+=this.print_groups();
+            str += "Group(s): ";
+            str += this.print_groups();
         }
         if (this.runs.size() > 0) {
-            str+="Run(s): ";
-            str+=this.print_runs();
+            str += "Run(s): ";
+            str += this.print_runs();
         }
         return str;
     }
@@ -384,6 +372,7 @@ public class Hand {
      *
      * I got some of this code from StackOverflow
      * https://stackoverflow.com/questions/5925420/how-to-create-a-string-from-string-array-or-arraylist
+     *
      * @return string
      */
     public final String hand_to_string() {

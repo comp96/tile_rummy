@@ -166,16 +166,17 @@ public class Meld {
 
     /**
      * Print meld to screen
-     * @return 
+     *
+     * @return
      */
-    public String  print_meld() {
-        String str="";
-        str+="{ ";
+    public String print_meld() {
+        String str = "";
+        str += "{ ";
         for (int i = 0; i < this.tiles.size(); i++) {
-            str+="[" + this.tiles.get(i).toString() + "] ";
+            str += "[" + this.tiles.get(i).toString() + "] ";
         }
-        str+="}\n";
-        
+        str += "}\n";
+
         return str;
     }
 

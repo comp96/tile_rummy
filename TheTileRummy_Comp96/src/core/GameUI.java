@@ -147,16 +147,23 @@ public class GameUI extends javax.swing.JFrame implements TimerListner {
     public void player_h_turn(Human_Player player) {
         //text.print_turn_start(player);
         haveInitialThirtee = true;
+        System.out.println("im in player h");
         if (player.get_melds_played() > 0 && player.get_hand().has_melds()) {
+            System.out.println("im in player h if");
             jTextArea_PlayerMeld.setText(player.get_hand().print_melds());
             //player.draw_or_play(board, stock);
         } else if (player.get_melds_played() == 0 && player.get_hand().has_30_plus()) {
+            System.out.println("im in player h if2");
             jTextArea_PlayerMeld.setText(player.get_hand().print_melds());
             // player.draw_or_play(board, stock);
         } else {
-            haveInitialThirtee = false;
-            jTextArea_PlayerMeld.setText(player.get_name() + " did not have a 30+ combination\n");
-            jButton_Play.setEnabled(false);
+            System.out.println("im in player h else");
+            if (player.get_melds_played() == 0 && !player.get_hand().has_30_plus()) {
+                haveInitialThirtee = false;
+                jTextArea_PlayerMeld.setText(player.get_name() + " did not have a 30+ combination\n");
+                jButton_Play.setEnabled(false);
+            }
+
         }
 
     }
@@ -707,6 +714,7 @@ public class GameUI extends javax.swing.JFrame implements TimerListner {
         if (JOptionPane.showConfirmDialog(this, "Do you want to play another meld?") == JOptionPane.YES_OPTION) {
             jButton_Play.setEnabled(false);
             jButton_Draw.setEnabled(false);
+            jTextArea_PlayerMeld.setText("");
             player_h_turn(p);
             checkStatusOfPlay(p);
         } else {
@@ -734,6 +742,12 @@ public class GameUI extends javax.swing.JFrame implements TimerListner {
             } else if (p.getRunsCount() < 0) {
                 jTextArea_PlayerMeld.append("\nYou only have Group to play with");
                 jButton_Run.setEnabled(false);
+                jButton_Group.setEnabled(true);
+                jButton_Play.setEnabled(false);
+                jButton_Draw.setEnabled(false);
+            } else if (p.getGroupsCount() >= 0 && p.getRunsCount() >= 0) {
+                jTextArea_PlayerMeld.append("\nYou have Group or Runs to play with");
+                jButton_Run.setEnabled(true);
                 jButton_Group.setEnabled(true);
                 jButton_Play.setEnabled(false);
                 jButton_Draw.setEnabled(false);

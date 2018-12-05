@@ -10,16 +10,14 @@ import java.util.Stack;
  */
 public class Stock {
 
-    
-    private final static int stock_size = 104;
+    private final static int STOCK_SIZE = 104;
 
     private Tile[] source_stock;
     private Stack<Tile> actual_stock;
     private ArrayList<Tile> drawn_tiles;
 
-   
     public Stock() {
-        this.source_stock = new Tile[stock_size];
+        this.source_stock = new Tile[STOCK_SIZE];
         this.actual_stock = new Stack<>();
         this.drawn_tiles = new ArrayList<>();
         make_stock(this.actual_stock);
@@ -41,8 +39,7 @@ public class Stock {
 
     /**
      * **********
-     * WRAPPERS *
-	 ***********
+     * WRAPPERS * **********
      */
     /**
      * @return tile popped
@@ -66,11 +63,6 @@ public class Stock {
     }
 
     /**
-     * ******
-     * ELSE *
-	 *******
-     */
-    /**
      * Fill the source stock with tiles
      */
     public void populate_source_stock() {
@@ -91,7 +83,7 @@ public class Stock {
         Random rnd = new Random();
         Tile swap;
 
-        for (int i = stock_size - 1; i >= 0; i = i - 1) {
+        for (int i = STOCK_SIZE - 1; i >= 0; i = i - 1) {
             int pos = rnd.nextInt(i + 1);
             swap = this.source_stock[pos];
             this.source_stock[pos] = this.source_stock[i];
@@ -108,7 +100,7 @@ public class Stock {
         this.populate_source_stock();
         this.shuffle_source_stock();
 
-        for (int i = 0; i < stock_size; ++i) {
+        for (int i = 0; i < STOCK_SIZE; ++i) {
             stock_to_make.push(this.source_stock[i]);
         }
     }
