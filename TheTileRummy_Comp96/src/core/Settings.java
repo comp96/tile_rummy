@@ -27,28 +27,40 @@ public class Settings {
     }
 
     public void setupSettings() {
-        do {
-            System.out.println("Enter Players Count(2-4)");
-            setNumOfPlayers(Integer.parseInt(JOptionPane.showInputDialog("Enter Players Count(2-4)")));
-        } while (getNumOfPlayers() < 2 || getNumOfPlayers() > 4);
+        while (true) {
+                numOfPlayers=Integer.parseInt(JOptionPane.showInputDialog("Enter Players Count(2-4)"));
+                if (numOfPlayers >=2 && numOfPlayers <=4) {
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Enter Players Count(2-4)", "Wrong Input", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        
         int choice = 0;
         for (int i = 0; i < getNumOfPlayers(); i++) {
-           
             System.out.println("Choose Players Type");
             System.out.println("1- Human");
             System.out.println("2- AI");
-            choice= Integer.parseInt(JOptionPane.showInputDialog("Choose Players Type\n1- Human\n2- AI"));
+            while (true) {
+                choice = Integer.parseInt(JOptionPane.showInputDialog("Player (" + (i + 1) + "/" + numOfPlayers + ")" + "\nChoose Players Type\n1- Human\n2- AI"));
+                if (choice == 1 || choice == 2) {
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Player (" + (i + 1) + "/" + numOfPlayers + ")" + "\nChoose Players Type\n1- Human\n2- AI", "Wrong Input", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+            //choice = Integer.parseInt(JOptionPane.showInputDialog("Player (" + (i + 1) + "/" + numOfPlayers + ")" + "\nChoose Players Type\n1- Human\n2- AI"));
             switch (choice) {
                 case 1: {
-                    
-                    System.out.println("Enter Name of Player ("+(i+1)+"/"+numOfPlayers+")");
-                    Player p1 = new Human_Player(JOptionPane.showInputDialog("Enter Name of Player ("+(i+1)+"/"+numOfPlayers+")").toUpperCase());
+
+                    System.out.println("Enter Name of Player (" + (i + 1) + "/" + numOfPlayers + ")");
+                    Player p1 = new Human_Player(JOptionPane.showInputDialog("Enter Name of Player (" + (i + 1) + "/" + numOfPlayers + ")").toUpperCase());
                     getPlayers().add(p1);
                     break;
                 }
                 case 2: {
                     Player p1;
-                    int strategy_choice= Integer.parseInt(JOptionPane.showInputDialog("Choose Strategy Of layer(1,2 or 3)"));
+                    int strategy_choice = Integer.parseInt(JOptionPane.showInputDialog("Choose Strategy Of layer(1,2 or 3)"));
                     switch (strategy_choice) {
                         case 1:
                             p1 = new AI_Player(getSTRATEGY_1());
@@ -64,8 +76,37 @@ public class Settings {
                     break;
                 }
             }//end of switch
-            numOfPlayers++;
+
+        }//end of for loop
+        String str = "Choose Player for Starting Turn\n";
+        int count = 1;
+        for (Player p : getPlayers()) {
+            str += count + "- " + p.get_name() + "\n";
+            count++;
         }
+        str += "Choose An Option";
+        int player_choice = 1;
+        while (true) {
+            player_choice = Integer.parseInt(JOptionPane.showInputDialog(str));
+            if (player_choice >= 1 && player_choice <= numOfPlayers) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, str, "Wrong Input", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        count = 1;
+        ArrayList<Player> temp = new ArrayList<>();
+
+        for (Player p : getPlayers()) {
+            if (count == player_choice) {
+                temp.add(0, p);
+            } else {
+                temp.add(p);
+            }
+            count++;
+        }
+        players = new ArrayList<>(temp);
+
     }
 
     /**
@@ -121,14 +162,13 @@ public class Settings {
      * @return the AI_PlayerCount
      */
     public int getAI_PlayerCount() {
-        int AI_PlayerCount=0;
-        for(Player p:getPlayers()){
-            if(p instanceof AI_Player){
+        int AI_PlayerCount = 0;
+        for (Player p : getPlayers()) {
+            if (p instanceof AI_Player) {
                 AI_PlayerCount++;
             }
         }
         return AI_PlayerCount;
     }
-
 
 }
